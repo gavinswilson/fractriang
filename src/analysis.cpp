@@ -103,6 +103,44 @@ class frtri
             return 0;
         }
 
+
+        int check_match_four_row(int row1, int row2, int row3, int row4)
+        {
+            int i,j, count;
+            int TTotal[26];
+
+            for (i=0;i<26;i++)
+            {
+                if (i==0)
+                    TTotal[i]=0;
+                else if (i==1)
+                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]
+                                +primearray[row2][i]+primearray[row2+1][i]
+                                    +primearray[row3][i]+primearray[row3+1][i]  
+                                        +primearray[row4][i]+primearray[row4+1][i]  
+                                        - 4;
+                else
+                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]
+                                +primearray[row2][i]+primearray[row2+1][i]
+                                    +primearray[row3][i]+primearray[row3+1][i]
+                                       +primearray[row4][i]+primearray[row4+1][i];  
+           }
+            for (i = 2; i<101; i++)
+                {
+                    count=0;
+                    for (j=1; j<26; j++)
+                    {
+                        if (TTotal[j] != facprimearray[i][j])
+                            j=26;
+                        else
+                            count++;
+                    }   
+                    if (count==25)
+                        return i;
+                }
+            return 0;
+        }
+
         int check_match_three_row(int row1, int row2, int row3)
         {
             int i,j, count;
@@ -148,9 +186,12 @@ class frtri
                 if (i==0)
                     TTotal[i]=0;
                 else if (i==1)
-                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]+primearray[row2][i]+primearray[row2+1][i] - 2;
+                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]
+                                +primearray[row2][i]+primearray[row2+1][i]
+                                    - 2;
                 else
-                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]+primearray[row2][i]+primearray[row2+1][i];
+                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]
+                                +primearray[row2][i]+primearray[row2+1][i];
             }
             for (i = 2; i<101; i++)
                 {
@@ -209,6 +250,37 @@ class frtri
                             result = check_match_three_row(i,j,k);
                             if (result!=0)
                                 std::cout << "T(" << i << ")*T(" << j << ")*T(" << k << ")" << "= " << result << "!" << std::endl;
+                        }
+                    }
+                }
+            return 0;
+        }
+
+        int build_multiples_four()
+        {
+            int i,j,k,l,result;
+            int max_multipliers[10];
+
+            for (i=1;i<1001; i++)
+                {
+                    if (primearray[i][0]==99999 || primearray[i+1][0]==99999)
+                        continue;    
+                    for (j=i+1; j<1001; j++)
+                    {
+                        if (primearray[j][0]==99999 ||primearray[j+1][0]==99999)
+                            continue;
+                        for (k=j+1; k<1001; k++)
+                        {
+                            if (primearray[k][0]==99999 ||primearray[k+1][0]==99999)
+                                continue;
+                            for (l=k+1; l<1001; l++)
+                            {
+                                if (primearray[l][0]==99999 ||primearray[l+1][0]==99999)
+                                    continue;
+                                result = check_match_four_row(i,j,k,l);
+                                if (result!=0)
+                                    std::cout << "T(" << i << ")*T(" << j << ")*T(" << k << ")*T(" << l << ")" << "= " << result << "!" << std::endl;
+                            }
                         }
                     }
                 }

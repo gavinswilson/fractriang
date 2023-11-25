@@ -26,5 +26,6 @@ int main(int argc, char* argv[])
     // tnum.print_fac_prime_array();
     tnum.build_multiples_two();
     tnum.build_multiples_three();
+    tnum.build_multiples_four();
     return 0;
 }   
