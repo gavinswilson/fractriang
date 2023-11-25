@@ -127,7 +127,9 @@ class frtri
                     count=0;
                     for (j=1; j<26; j++)
                     {
-                        if (TTotal[j] == facprimearray[i][j])
+                        if (TTotal[j] != facprimearray[i][j])
+                            j=26;
+                        else
                             count++;
                     }   
                     if (count==25)
@@ -155,7 +157,9 @@ class frtri
                     count=0;
                     for (j=1; j<26; j++)
                     {
-                        if (TTotal[j] == facprimearray[i][j])
+                        if (TTotal[j] != facprimearray[i][j])
+                            j=26;
+                        else
                             count++;
                     }   
                     if (count==25)
