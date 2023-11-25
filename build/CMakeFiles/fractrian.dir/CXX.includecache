@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/gavinswilson/Code/factriang/src/analysis.cpp
+cmath
+-
+iomanip
+-
+
+/home/gavinswilson/Code/factriang/src/main.cpp
+iostream
+-
+analysis.cpp
+/home/gavinswilson/Code/factriang/src/analysis.cpp
+string
+-
+cmath
+-
+

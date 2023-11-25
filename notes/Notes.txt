@@ -1,0 +1,68 @@
+Problem Statement
+-----------------
+
+Triangular number:
+    T(n) = n(n+1)/2
+
+Factorial number: 
+    n! = n*(n-1)*(n-2)...2*1
+
+Question statemnent does T(x)*...*T(z) = p!
+
+i.e. can you represent any factorial as a product of triangle numbers?
+
+T(1) = 1
+T(2) = 3
+T(3) = 6
+T(4) = 10
+T(5) = 15
+T(6) = 21
+T(7) = 28
+T(8) = 36
+T(9) = 45
+
+1! = 1
+2! = 2
+3! = 6
+4! = 24
+5! = 120
+
+
+Initial Solutions
+-----------------
+
+1! = 1 = T(1)
+2! = 2 => No Solution
+3! = 6 = T(3)
+4! = 24 => No Solution
+5! = 120 = T(15)
+
+etc ...
+
+Conclusions:
+------------
+
+    * T(x) can equal y! 
+    * If not then the highest Triangle number that can be used is y!/3
+    * Prime factors of each side must be identical
+    * Future solutions can be built from previous ones using multipliers of different T(x)
+    * Multiple solutions could be possible
+    * 100! = T(?) is the largest possible number - what is it??
+    * not all T(x) numbers are viable if they have factors over 97
+
+Solutioning 
+-----------
+
+Using breakdown of prime factors to prove answer.
+
+6! = 720 = T(15)*T(3) = 120*6
+
+6! = 6x5x4x3x2x1 => 3x2x5x2x2x3x2 => 5x3^2x2^4
+
+T(15)*T(3) = 15x16/2 * 3*4/2 = 15x8*3*2 = 5x3x2x2x2x3x2 = 5x3^2x2^4
+
+Can we find triangle numbers that match quickly?
+
+Break down the factorial into prime factors and search for sets of matching 
+
+Forward looking using multiplications of current solutions to identify new ones.

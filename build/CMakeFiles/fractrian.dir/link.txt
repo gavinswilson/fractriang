@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/fractrian.dir/src/main.cpp.o -o fractrian 
