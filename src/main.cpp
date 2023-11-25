@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[]) 
 { 
-    std::cout << "You have entered " << argc << " arguments" << std::endl;
+    // std::cout << "You have entered " << argc << " arguments" << std::endl;
     
     frtri tnum;
     unsigned long long int bob;
@@ -21,8 +21,10 @@ int main(int argc, char* argv[])
     
     std::cout << std::endl;
     tnum.fill_prime_array();
-    //tnum.print_prime_array();
+    // tnum.print_prime_array();
     tnum.fill_fac_prime_array();
-    tnum.print_fac_prime_array();
+    // tnum.print_fac_prime_array();
+    tnum.build_multiples_two();
+    tnum.build_multiples_three();
     return 0;
-}
+}   

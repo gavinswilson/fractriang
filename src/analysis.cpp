@@ -4,7 +4,7 @@
 class frtri
 {
     public:
-        int primearray[101][26] = {0};
+        int primearray[1001][26] = {0};
         int facprimearray[101][26] = {0};
 
         frtri()
@@ -35,7 +35,7 @@ class frtri
             primearray[0][24] = 89;
             primearray[0][25] = 97;
 
-            for (int i = 1; i<101; i++)
+            for (int i = 1; i<1002; i++)
                 primearray[i][0]=i;
 
             facprimearray[0][1] = 2;
@@ -71,23 +71,143 @@ class frtri
         int fill_prime_array()
         {
             int wp,i,j,d;
-            for (i = 1; i<101; i++)
+            for (i = 1; i<1002; i++)
             {
                 wp = i;
 
                 for (j=1; j<26; j++) 
                 { 
                     d = primearray[0][j];
-                    std::cout << i << " " << j << " " << wp << " " << d << std::endl;
+                    //std::cout << i << " " << j << " " << wp << " " << d << std::endl;
                     if (wp < d)
-                        continue;
+                        {
+                            j=26;
+                            continue;
+                        }
                     while (wp % primearray[0][j] == 0) 
                     { 
                         primearray[i][j] = primearray[i][j] +1;
                         wp = wp/primearray[0][j];
-                    } 
+                        //std::cout << "loop: " << i << " " << j << " " << wp << " " << d << std::endl;
+                    }
+                    if (j==25)
+                    {
+                        if (wp>j)
+                        {
+                            //std::cout << "has prime factor > 97" << std::endl;
+                            primearray[i][0] = 99999;
+                        }
+                    }
                 } 
             }
+            return 0;
+        }
+
+        int check_match_three_row(int row1, int row2, int row3)
+        {
+            int i,j, count;
+            int TTotal[26];
+
+            for (i=0;i<26;i++)
+            {
+                if (i==0)
+                    TTotal[i]=0;
+                else if (i==1)
+                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]
+                                +primearray[row2][i]+primearray[row2+1][i]
+                                    +primearray[row3][i]+primearray[row3+1][i]  
+                                    - 3;
+                else
+                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]
+                                +primearray[row2][i]+primearray[row2+1][i]
+                                    +primearray[row3][i]+primearray[row3+1][i];
+            }
+            for (i = 2; i<101; i++)
+                {
+                    count=0;
+                    for (j=1; j<26; j++)
+                    {
+                        if (TTotal[j] == facprimearray[i][j])
+                            count++;
+                    }   
+                    if (count==25)
+                        return i;
+                }
+            return 0;
+        }
+
+        int check_match_two_row(int row1, int row2)
+        {
+            int i,j, count;
+            int TTotal[26];
+
+            for (i=0;i<26;i++)
+            {
+                if (i==0)
+                    TTotal[i]=0;
+                else if (i==1)
+                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]+primearray[row2][i]+primearray[row2+1][i] - 2;
+                else
+                    TTotal[i]=primearray[row1][i]+primearray[row1+1][i]+primearray[row2][i]+primearray[row2+1][i];
+            }
+            for (i = 2; i<101; i++)
+                {
+                    count=0;
+                    for (j=1; j<26; j++)
+                    {
+                        if (TTotal[j] == facprimearray[i][j])
+                            count++;
+                    }   
+                    if (count==25)
+                        return i;
+                }
+            return 0;
+        }
+
+        int build_multiples_two()
+        {
+            int i,j,result;
+            int max_multipliers[10];
+
+            for (i=1;i<1001; i++)
+                {
+                    if (primearray[i][0]==99999 || primearray[i+1][0]==99999)
+                        continue;    
+                    for (j=i+1; j<1001; j++)
+                    {
+                        if (primearray[j][0]==99999 ||primearray[j+1][0]==99999)
+                            continue;
+                        result = check_match_two_row(i,j);
+                        if (result!=0)
+                            std::cout << "T(" << i << ")*T(" << j << ") - " << "= " << result << "!" << std::endl;
+                    }
+                }
+            return 0;
+        }
+
+        int build_multiples_three()
+        {
+            int i,j,k,result;
+            int max_multipliers[10];
+
+            for (i=1;i<1001; i++)
+                {
+                    if (primearray[i][0]==99999 || primearray[i+1][0]==99999)
+                        continue;    
+                    for (j=i+1; j<1001; j++)
+                    {
+                        if (primearray[j][0]==99999 ||primearray[j+1][0]==99999)
+                            continue;
+                        for (k=j+1; k<1001; k++)
+                        {
+                            if (primearray[k][0]==99999 ||primearray[k+1][0]==99999)
+                                continue;
+                            result = check_match_three_row(i,j,k);
+                            if (result!=0)
+                                std::cout << "T(" << i << ")*T(" << j << ")*T(" << k << ")" << "= " << result << "!" << std::endl;
+                        }
+                    }
+                }
             return 0;
         }
 
@@ -109,7 +229,7 @@ class frtri
 
         int print_prime_array()
         {
-            for (int i = 0; i<101; i++)
+            for (int i = 0; i<1001; i++)
             {
                 for (int j = 0; j<26; j++)
                 {
@@ -117,6 +237,7 @@ class frtri
                 }
                 std::cout << std::endl;
             } 
+            std::cout << std::endl;
             return 0;
         }
 
@@ -130,6 +251,7 @@ class frtri
                 }
                 std::cout << std::endl;
             } 
+            std::cout << std::endl;
             return 0;
         }
 
